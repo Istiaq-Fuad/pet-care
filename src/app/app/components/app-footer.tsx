@@ -1,6 +1,6 @@
 function AppFooter() {
   return (
-    <footer className="mt-auto border-t border-black/5 py-4">
+    <footer className="mt-auto border-t border-black/5 py-3">
       <small className="opacity-50">
         &copy; 2030 irf. All rights reserved.
       </small>

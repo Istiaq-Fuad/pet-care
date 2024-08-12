@@ -1,7 +1,7 @@
 import React from "react";
 
 function BackgroundPattern() {
-  return <div className="bg-[#5DC9A8] h-[300px] w-full absolute top-0 -z-10" />;
+  return <div className="bg-[#5DC9A8] h-[265px] w-full absolute top-0" />;
 }
 
 export default BackgroundPattern;
