@@ -1,0 +1,16 @@
+function DashboardHeader() {
+  return (
+    <section className="flex justify-between items-center leading-4 text-white mt-4 text-sm">
+      <div className="">
+        <h1 className="font-bold text-xl">PetSoft</h1>
+        <p className="text-white/75">Manage your pet daycare with ease</p>
+      </div>
+      <div className="text-center">
+        <h1 className="font-bold text-xl">2</h1>
+        <p className="text-white/75">current guests</p>
+      </div>
+    </section>
+  );
+}
+
+export default DashboardHeader;
