@@ -20,7 +20,7 @@ function PetDetails() {
       <div className="flex justify-between items-center bg-white border-b border-shy p-5">
         <div className="flex gap-x-4 items-center">
           <Image
-            src={selectedPet.imageUrl}
+            src={selectedPet.imageURL}
             alt="pet-image"
             height={55}
             width={55}

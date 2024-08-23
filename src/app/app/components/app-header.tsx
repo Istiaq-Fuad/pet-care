@@ -19,7 +19,7 @@ function AppHeader() {
     },
   ];
   return (
-    <header className="flex items-center justify-between text-xs py-2 border-b border-white/10">
+    <header className="flex items-center justify-between text-xs py-2 border-b border-white/10 mb-4">
       <Logo />
       <nav>
         <ul className="flex gap-4">

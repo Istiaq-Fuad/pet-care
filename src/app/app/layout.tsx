@@ -3,11 +3,13 @@ import AppFooter from "./components/app-footer";
 import AppHeader from "./components/app-header";
 import BackgroundPattern from "./components/background-pattern";
 import { Fragment } from "react";
+import prisma from "@/lib/db";
+import { Toaster } from "@/components/ui/sonner";
 
 async function Layout({ children }: { children: React.ReactNode }) {
-  const response = await fetch("http://localhost:8000/pets");
+  const petData = await prisma.pet.findMany();
 
-  const petData = await response.json();
+  // const petData = await response.json();
 
   return (
     <div className="bg-slate-100">
@@ -20,6 +22,7 @@ async function Layout({ children }: { children: React.ReactNode }) {
           <AppFooter />
         </div>
       </div>
+      <Toaster position="top-right" />
     </div>
   );
 }

@@ -26,7 +26,7 @@ function PetList() {
                 onClick={() => setSelectedPetId(pet.id)}
               >
                 <Image
-                  src={pet.imageUrl}
+                  src={pet.imageURL}
                   alt="pet-image"
                   height={45}
                   width={45}
