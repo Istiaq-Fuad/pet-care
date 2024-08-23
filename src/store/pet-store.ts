@@ -1,6 +1,8 @@
 import addPet from "@/app/app/actions/add-pet";
 import checkoutPet from "@/app/app/actions/checkout-pet";
 import editPet from "@/app/app/actions/edit-pet";
+import { PetEssential } from "@/lib/types";
+import { Pet } from "@prisma/client";
 import { toast } from "sonner";
 import { create } from "zustand";
 
@@ -16,8 +18,8 @@ type PetStore = {
   searchedPet: Pet[];
   setSearchedPet: () => void;
   handleCheckout: () => void;
-  handleAddPet: (newPet: Omit<Pet, "id">) => void;
-  handleEditPet: (newPet: Omit<Pet, "id">, petId: string) => void;
+  handleAddPet: (newPet: PetEssential) => void;
+  handleEditPet: (newPet: PetEssential, petId: string) => void;
 };
 
 export const usePetStore = create<PetStore>((set, get) => ({
@@ -84,9 +86,14 @@ export const usePetStore = create<PetStore>((set, get) => ({
     }
   },
 
-  handleAddPet: async (newPet: Omit<Pet, "id">) => {
+  handleAddPet: async (newPet: PetEssential) => {
     const { setPets, pets } = get();
-    const newPetWithId = { ...newPet, id: Date.now().toString() };
+    const newPetWithId = {
+      ...newPet,
+      id: Date.now().toString(),
+      updatedAt: new Date(),
+      createdAt: new Date(),
+    };
 
     setPets([...pets, newPetWithId]);
 
@@ -98,7 +105,7 @@ export const usePetStore = create<PetStore>((set, get) => ({
     }
   },
 
-  handleEditPet: async (newPet: Omit<Pet, "id">, petId: string) => {
+  handleEditPet: async (newPet: PetEssential, petId: string) => {
     const { setPets, pets } = get();
 
     const newPets = pets.map((pet) => {

@@ -17,22 +17,6 @@ function PetForm({ buttonText, actionType, onFormSubmission }: PetFormProps) {
   const selectedPet = usePetStore((state) => state.selectedPet());
   const { handleAddPet, handleEditPet } = usePetStore();
 
-  const defaults = {
-    name: "",
-    ownerName: "",
-    imageURL: "",
-    age: "",
-    notes: "",
-  };
-
-  if (actionType === "edit") {
-    defaults.name = selectedPet?.name || "";
-    defaults.ownerName = selectedPet?.ownerName || "";
-    defaults.imageURL = selectedPet?.imageURL || "";
-    defaults.age = selectedPet?.age.toString() || "";
-    defaults.notes = selectedPet?.notes || "";
-  }
-
   // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
   //   e.preventDefault();
 
@@ -88,7 +72,7 @@ function PetForm({ buttonText, actionType, onFormSubmission }: PetFormProps) {
           type="text"
           id="name"
           name="name"
-          defaultValue={defaults.name}
+          defaultValue={actionType === "edit" ? selectedPet?.name : ""}
           required
         />
       </div>
@@ -99,7 +83,7 @@ function PetForm({ buttonText, actionType, onFormSubmission }: PetFormProps) {
           type="text"
           id="ownerName"
           name="ownerName"
-          defaultValue={defaults.ownerName}
+          defaultValue={actionType === "edit" ? selectedPet?.ownerName : ""}
           required
         />
       </div>
@@ -110,7 +94,7 @@ function PetForm({ buttonText, actionType, onFormSubmission }: PetFormProps) {
           type="text"
           id="imageURL"
           name="imageURL"
-          defaultValue={defaults.imageURL}
+          defaultValue={actionType === "edit" ? selectedPet?.imageURL : ""}
         />
       </div>
 
@@ -120,14 +104,18 @@ function PetForm({ buttonText, actionType, onFormSubmission }: PetFormProps) {
           type="text"
           id="age"
           name="age"
-          defaultValue={defaults.age}
+          defaultValue={actionType === "edit" ? selectedPet?.age : ""}
           required
         />
       </div>
 
       <div className="space-y-1">
         <Label htmlFor="notes">Notes</Label>
-        <Textarea id="notes" name="notes" defaultValue={defaults.notes} />
+        <Textarea
+          id="notes"
+          name="notes"
+          defaultValue={actionType === "edit" ? selectedPet?.notes : ""}
+        />
       </div>
 
       <Button type="submit" className="mt-5 self-end">

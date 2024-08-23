@@ -1,9 +1,10 @@
 "use server";
 
 import prisma from "@/lib/db";
+import { PetEssential } from "@/lib/types";
 import { revalidatePath } from "next/cache";
 
-export default async function editPet(newPet: Omit<Pet, "id">, petId: string) {
+export default async function editPet(newPet: PetEssential, petId: string) {
   try {
     await prisma.pet.update({
       where: {
