@@ -9,8 +9,6 @@ import { Toaster } from "@/components/ui/sonner";
 async function Layout({ children }: { children: React.ReactNode }) {
   const petData = await prisma.pet.findMany();
 
-  // const petData = await response.json();
-
   return (
     <div className="bg-slate-100">
       <div>
