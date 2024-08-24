@@ -10,7 +10,7 @@ type PetStore = {
   pets: Pet[];
   setPets: (pets: Pet[]) => void;
   selectedPetId: string | null;
-  setSelectedPetId: (petId: string) => void;
+  setSelectedPetId: (petId: Pet["id"]) => void;
   selectedPet: () => Pet | undefined;
   petCount: () => number;
   searchQuery: string;
@@ -19,7 +19,7 @@ type PetStore = {
   setSearchedPet: () => void;
   handleCheckout: () => void;
   handleAddPet: (newPet: PetEssential) => void;
-  handleEditPet: (newPet: PetEssential, petId: string) => void;
+  handleEditPet: (newPet: PetEssential, petId: Pet["id"]) => void;
 };
 
 export const usePetStore = create<PetStore>((set, get) => ({
@@ -54,7 +54,7 @@ export const usePetStore = create<PetStore>((set, get) => ({
 
   selectedPetId: null,
 
-  setSelectedPetId: (petId: string) => set({ selectedPetId: petId }),
+  setSelectedPetId: (petId: Pet["id"]) => set({ selectedPetId: petId }),
 
   selectedPet: () => {
     const state = get();
@@ -105,7 +105,7 @@ export const usePetStore = create<PetStore>((set, get) => ({
     }
   },
 
-  handleEditPet: async (newPet: PetEssential, petId: string) => {
+  handleEditPet: async (newPet: PetEssential, petId: Pet["id"]) => {
     const { setPets, pets } = get();
 
     const newPets = pets.map((pet) => {

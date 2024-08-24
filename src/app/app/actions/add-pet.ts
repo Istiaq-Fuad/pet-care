@@ -5,7 +5,7 @@ import { PetEssential } from "@/lib/types";
 import { petFormSchema } from "@/lib/validation/pet-form-validation";
 import { revalidatePath } from "next/cache";
 
-export default async function addPet(newPet: PetEssential) {
+export default async function addPet(newPet: unknown) {
   const validatedPet = petFormSchema.safeParse(newPet);
 
   if (!validatedPet.success) {

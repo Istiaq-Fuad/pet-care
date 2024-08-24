@@ -32,6 +32,16 @@ function PetForm({ buttonText, actionType, onFormSubmission }: PetFormProps) {
     formState: { errors },
   } = useForm<PetFormType>({
     resolver: zodResolver(petFormSchema),
+    defaultValues:
+      actionType === "edit" && selectedPet
+        ? {
+            name: selectedPet.name,
+            ownerName: selectedPet.ownerName,
+            imageURL: selectedPet.imageURL,
+            age: selectedPet.age,
+            notes: selectedPet.notes || "",
+          }
+        : undefined,
   });
 
   return (
