@@ -7,7 +7,7 @@ function SignUp() {
     <div>
       <AuthHeader formHeader="Sign Up" />
 
-      <AuthForm buttonText="Sign up" />
+      <AuthForm formType="signup" />
       <AuthFooter
         href="/login"
         footerText="Already have an account?"

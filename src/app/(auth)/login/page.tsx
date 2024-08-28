@@ -6,7 +6,7 @@ function Login() {
   return (
     <div>
       <AuthHeader formHeader="Log In" />
-      <AuthForm buttonText="Log in" />
+      <AuthForm formType="login" />
       <AuthFooter
         href="/signup"
         footerText="No account yet?"
