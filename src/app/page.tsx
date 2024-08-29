@@ -11,6 +11,7 @@ export default function Home() {
         alt="Preview of PetSoft"
         width={519}
         height={472}
+        priority
       />
 
       <div>
