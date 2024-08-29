@@ -9,18 +9,20 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider = "sqlite"
+  url      = "file:./dev.db"
+  // provider = "postgresql"
+  // url      = env("DATABASE_URL")
 }
 
 model User {
-  id            String   @id @default(cuid())
+  id             String   @id @default(cuid())
   // name      String
-  email         String   @unique
+  email          String   @unique
   hashedPassword String
-  pets          Pet[]
-  updatedAt     DateTime @updatedAt
-  createdAt     DateTime @default(now())
+  pets           Pet[]
+  updatedAt      DateTime @updatedAt
+  createdAt      DateTime @default(now())
 }
 
 model Pet {
