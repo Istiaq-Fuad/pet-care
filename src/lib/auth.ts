@@ -2,10 +2,11 @@ import NextAuth, { NextAuthConfig } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import prisma from "./db";
 import bcrypt from "bcryptjs";
+import { NextResponse } from "next/server";
 
 const config = {
   pages: {
-    signIn: "/login",
+    signIn: "/auth/login",
   },
 
   session: {
@@ -47,6 +48,7 @@ const config = {
       const isLoggedIn = Boolean(auth?.user);
 
       const isTryingToAccessApp = request.nextUrl.pathname.includes("/app");
+      const isTryingToAccessAuth = request.nextUrl.pathname.includes("/auth");
 
       if (!isLoggedIn && isTryingToAccessApp) {
         return false;
@@ -56,11 +58,41 @@ const config = {
         return true;
       }
 
-      if (isTryingToAccessApp) {
+      if (isLoggedIn && isTryingToAccessAuth) {
+        return NextResponse.redirect(
+          new URL("/app/dashboard", request.nextUrl)
+        );
+      }
+
+      if (!isLoggedIn && !isTryingToAccessApp) {
         return true;
       }
+
+      if (isLoggedIn && !isTryingToAccessApp) {
+        return true;
+      }
+
+      if (isLoggedIn) {
+        return NextResponse.redirect(
+          new URL("/app/dashboard", request.nextUrl)
+        );
+      }
+
+      return false;
+    },
+    jwt: async ({ user, token }) => {
+      if (user) {
+        token.uid = user.id;
+      }
+      return token;
+    },
+    session: async ({ session, token }) => {
+      if (session.user && token.sub) {
+        session.user.id = token.sub;
+      }
+      return session;
     },
   },
 } satisfies NextAuthConfig;
 
-export const { auth, signIn } = NextAuth(config);
+export const { auth, signIn, signOut } = NextAuth(config);
