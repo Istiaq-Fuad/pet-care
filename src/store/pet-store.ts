@@ -1,6 +1,6 @@
-import addPet from "@/app/app/actions/add-pet";
-import checkoutPet from "@/app/app/actions/checkout-pet";
-import editPet from "@/app/app/actions/edit-pet";
+import addPet from "@/app/app/dashboard/actions/add-pet";
+import checkoutPet from "@/app/app/dashboard/actions/checkout-pet";
+import editPet from "@/app/app/dashboard/actions/edit-pet";
 import { PetEssential } from "@/lib/types";
 import { Pet } from "@prisma/client";
 import { toast } from "sonner";

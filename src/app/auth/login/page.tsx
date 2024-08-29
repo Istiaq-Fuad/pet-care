@@ -8,7 +8,7 @@ function Login() {
       <AuthHeader formHeader="Log In" />
       <AuthForm formType="login" />
       <AuthFooter
-        href="/signup"
+        href="/auth/signup"
         footerText="No account yet?"
         linkText="Sign up"
       />

@@ -2,10 +2,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import logIn from "../actions/login";
+import signUp from "../actions/signUp";
 
 function AuthForm({ formType }: { formType: "login" | "signup" }) {
   return (
-    <form action={logIn} className="space-y-4">
+    <form action={formType === "login" ? logIn : signUp} className="space-y-4">
       <div className="space-y-2">
         <div>
           <Label htmlFor="email">Email</Label>
