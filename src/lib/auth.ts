@@ -81,14 +81,14 @@ const config = {
       return false;
     },
     jwt: async ({ user, token }) => {
-      if (user) {
-        token.uid = user.id;
+      if (user && user.id) {
+        token.userId = user.id;
       }
       return token;
     },
     session: async ({ session, token }) => {
-      if (session.user && token.sub) {
-        session.user.id = token.sub;
+      if (session.user && token.userId) {
+        session.user.id = token.userId;
       }
       return session;
     },
