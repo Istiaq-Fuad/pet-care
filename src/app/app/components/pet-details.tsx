@@ -17,7 +17,7 @@ function PetDetails() {
 
   return (
     <section className="h-full flex flex-col">
-      <div className="flex justify-between items-center bg-white border-b border-shy p-5">
+      <div className="flex flex-wrap justify-center md:justify-between gap-y-6 items-center bg-white border-b border-shy p-5">
         <div className="flex gap-x-4 items-center">
           <Image
             src={selectedPet.imageURL}
@@ -42,7 +42,7 @@ function PetDetails() {
         </div>
       </div>
 
-      <div className="bg-white/80 h-full mx-4 mb-4 p-5 text-sm flex-1 text-black/80 rounded-md shadow-sm">
+      <div className="bg-white/80 h-full mx-4 mb-4 p-5 text-sm flex-1 text-black/80 rounded-md shadow-sm min-h-24">
         {selectedPet.notes}
       </div>
     </section>
