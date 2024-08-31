@@ -2,8 +2,12 @@
 
 import { signOut } from "@/lib/auth";
 
-
 export default async function logOut() {
-  await signOut({redirectTo: "/"});
-
+  try {
+    await signOut({ redirectTo: "/" });
+  } catch (error) {
+    return {
+      message: "Couldn't sign out",
+    };
+  }
 }

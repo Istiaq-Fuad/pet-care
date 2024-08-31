@@ -93,6 +93,7 @@ export const usePetStore = create<PetStore>((set, get) => ({
       id: Date.now().toString(),
       updatedAt: new Date(),
       createdAt: new Date(),
+      userId: "1",
     };
 
     setPets([...pets, newPetWithId]);
