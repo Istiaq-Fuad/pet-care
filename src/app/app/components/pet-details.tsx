@@ -38,7 +38,7 @@ function PetDetails() {
         </div>
         <div className="text-center">
           <h1>AGE</h1>
-          <p>4</p>
+          <p>{selectedPet.age}</p>
         </div>
       </div>
 
