@@ -66,9 +66,7 @@ const config = {
       }
 
       if (isLoggedIn && isTryingToAccessAuth) {
-        return NextResponse.redirect(
-          new URL("/app/dashboard", request.nextUrl)
-        );
+        return NextResponse.redirect(new URL("/payment", request.nextUrl));
       }
 
       if (!isLoggedIn && !isTryingToAccessApp) {
@@ -80,6 +78,7 @@ const config = {
       }
 
       if (isLoggedIn) {
+        console.log(6);
         return NextResponse.redirect(
           new URL("/app/dashboard", request.nextUrl)
         );
