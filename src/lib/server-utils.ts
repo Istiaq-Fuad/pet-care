@@ -1,5 +1,5 @@
 import "server-only";
-import { auth } from "./auth";
+import { auth } from "./auth-no-edge";
 import { redirect } from "next/navigation";
 
 export async function readUserSession() {

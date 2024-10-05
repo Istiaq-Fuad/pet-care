@@ -1,6 +1,6 @@
 "use server";
 
-import { signIn } from "@/lib/auth";
+import { signIn } from "@/lib/auth-no-edge";
 import prisma from "@/lib/db";
 import {
   authFormSchema,

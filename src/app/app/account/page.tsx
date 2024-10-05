@@ -1,4 +1,4 @@
-import { auth } from "@/lib/auth";
+import { auth } from "@/lib/auth-no-edge";
 import SignOutButton from "../components/sign-out-btn";
 
 async function Account() {
