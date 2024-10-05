@@ -1,6 +1,6 @@
 import NextAuth, { NextAuthConfig } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
-import prisma from "./db";
+import prisma from "@/lib/db";
 import bcrypt from "bcryptjs";
 import { NextResponse } from "next/server";
 import { authFormSchema } from "./validation/auth-form-validation";
@@ -56,45 +56,75 @@ const config = {
 
       const isTryingToAccessApp = request.nextUrl.pathname.includes("/app");
       const isTryingToAccessAuth = request.nextUrl.pathname.includes("/auth");
+      const isTryingToAccessPayment =
+        request.nextUrl.pathname.includes("/payment");
 
       if (!isLoggedIn && isTryingToAccessApp) {
         return false;
       }
 
-      if (isLoggedIn && isTryingToAccessApp) {
-        return true;
-      }
-
-      if (isLoggedIn && isTryingToAccessAuth) {
+      if (
+        isLoggedIn &&
+        (isTryingToAccessAuth || isTryingToAccessApp) &&
+        !auth?.user.hasAccess
+      ) {
         return NextResponse.redirect(new URL("/payment", request.nextUrl));
       }
 
-      if (!isLoggedIn && !isTryingToAccessApp) {
+      if (isLoggedIn && isTryingToAccessApp && auth?.user.hasAccess) {
         return true;
       }
 
-      if (isLoggedIn && !isTryingToAccessApp) {
-        return true;
-      }
-
-      if (isLoggedIn) {
-        console.log(6);
+      if (isLoggedIn && (isTryingToAccessAuth || isTryingToAccessPayment)) {
         return NextResponse.redirect(
           new URL("/app/dashboard", request.nextUrl)
         );
       }
 
-      return false;
+      // if (!isLoggedIn && !isTryingToAccessApp) {
+      //   console.log(4);
+      //   return true;
+      // }
+
+      // if (isLoggedIn) {
+      //   return NextResponse.redirect(
+      //     new URL("/app/dashboard", request.nextUrl)
+      //   );
+      // }
+
+      // if (isLoggedIn && !isTryingToAccessApp) {
+      //   console.log(5);
+      //   return true;
+      // }
+
+      return true;
     },
-    jwt: async ({ user, token }) => {
+    jwt: async ({ token, user, trigger }) => {
       if (user && user.id) {
         token.userId = user.id;
+        token.hasAccess = user.hasAccess;
       }
+
+      if (trigger === "update") {
+        const userFromDb = await prisma.user.findUnique({
+          where: {
+            id: token.userId,
+          },
+        });
+
+        if (userFromDb) {
+          token.hasAccess = userFromDb.hasAccess;
+          console.log(userFromDb.hasAccess);
+        }
+      }
+
       return token;
     },
+
     session: async ({ session, token }) => {
       if (session.user && token.userId) {
         session.user.id = token.userId;
+        session.user.hasAccess = token.hasAccess;
       }
       return session;
     },

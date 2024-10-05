@@ -7,7 +7,7 @@ export async function readUserSession() {
 
   // console.log(session);
   if (!session?.user) {
-    redirect("/login");
+    redirect("auth/login");
   }
 
   return session;

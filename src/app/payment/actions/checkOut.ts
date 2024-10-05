@@ -7,9 +7,7 @@ import Stripe from "stripe";
 
 export default async function checkOut() {
   const session = await readUserSession();
-  if (!session) {
-    redirect("/login");
-  }
+
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
   const checkOutSession = await stripe.checkout.sessions.create({

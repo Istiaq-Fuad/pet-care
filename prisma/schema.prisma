@@ -21,6 +21,7 @@ model User {
   email          String   @unique
   hashedPassword String
   pets           Pet[]
+  hasAccess      Boolean  @default(false)
   updatedAt      DateTime @updatedAt
   createdAt      DateTime @default(now())
 }

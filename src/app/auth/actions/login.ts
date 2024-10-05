@@ -22,7 +22,7 @@ export default async function logIn(authData: unknown) {
   }
 
   try {
-    await signIn("credentials", validatedAuthData.data, );
+    await signIn("credentials", validatedAuthData.data);
   } catch (error) {
     if (error instanceof AuthError) {
       switch (error.type) {

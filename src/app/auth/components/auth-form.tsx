@@ -13,8 +13,10 @@ import {
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import AuthErrorMessage from "./auth-error";
+import { useRouter } from "next/navigation";
 
 function AuthForm({ formType }: { formType: "login" | "signup" }) {
+  const router = useRouter();
   const {
     register,
     trigger,
@@ -56,6 +58,7 @@ function AuthForm({ formType }: { formType: "login" | "signup" }) {
               ...error,
             }));
           }
+          router.push("/app/dashboard");
         }
       }}
       className="space-y-4"
