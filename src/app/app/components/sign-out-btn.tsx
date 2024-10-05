@@ -13,9 +13,7 @@ function SignOutButton() {
       disabled={isPending}
       onClick={async () => {
         startTransition(async () => {
-          const error = await logOut();
-
-          toast.error(error?.message);
+          await logOut();
         });
       }}
     >
