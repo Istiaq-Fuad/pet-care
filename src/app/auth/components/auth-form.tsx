@@ -58,7 +58,7 @@ function AuthForm({ formType }: { formType: "login" | "signup" }) {
               ...error,
             }));
           }
-          router.push("/app/dashboard");
+          // router.push("/app/dashboard");
         }
       }}
       className="space-y-4"

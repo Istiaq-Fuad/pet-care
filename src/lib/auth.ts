@@ -68,6 +68,7 @@ const config = {
         (isTryingToAccessAuth || isTryingToAccessApp) &&
         !auth?.user.hasAccess
       ) {
+        // console.log("test");
         return NextResponse.redirect(new URL("/payment", request.nextUrl));
       }
 
@@ -75,7 +76,14 @@ const config = {
         return true;
       }
 
-      if (isLoggedIn && (isTryingToAccessAuth || isTryingToAccessPayment)) {
+      if (isLoggedIn && isTryingToAccessAuth) {
+        // console.log("test2");
+        return NextResponse.redirect(
+          new URL("/app/dashboard", request.nextUrl)
+        );
+      }
+
+      if (isLoggedIn && auth?.user.hasAccess && isTryingToAccessPayment) {
         return NextResponse.redirect(
           new URL("/app/dashboard", request.nextUrl)
         );
@@ -114,7 +122,7 @@ const config = {
 
         if (userFromDb) {
           token.hasAccess = userFromDb.hasAccess;
-          console.log(userFromDb.hasAccess);
+          // console.log(userFromDb.hasAccess);
         }
       }
 
