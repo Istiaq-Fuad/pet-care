@@ -1,36 +1,158 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# PetSoft - Pet Daycare Management System
+
+PetSoft is a subscription-based platform designed to streamline the management of pet daycare services. With features tailored for pet daycare centers, it provides an efficient and user-friendly solution for managing subscriptions, scheduling, and more.
+
+## Features
+
+- **Subscription Management:** Handle recurring subscriptions with Stripe integration.
+- **User Authentication:** Secure authentication with NextAuth.
+- **Scheduling and Booking:** Easily manage daycare schedules and bookings.
+- **Responsive UI:** Modern and responsive interface built with TailwindCSS.
+- **Theme Customization:** Support for light and dark themes via NextThemes.
+- **Form Validation:** Robust forms powered by React Hook Form and Zod.
+
+## Technologies Used
+
+### Backend
+
+- **Prisma:** Database ORM for managing relational data.
+- **Next.js:** Framework for building the application.
+- **Stripe:** Payment gateway for managing subscriptions.
+
+### Frontend
+
+- **React 18**: Component-based architecture.
+- **TailwindCSS:** Utility-first CSS framework for styling.
+- **Radix UI:** Accessible and customizable UI components.
+
+### Utilities
+
+- **React Hook Form:** Simplifies form handling and validation.
+- **Zod:** Schema validation for forms and APIs.
+- **Zustand:** Lightweight state management.
+- **Sonner:** Elegant toast notifications.
+
+### Development Tools
+
+- **TypeScript:** Strongly typed language for better reliability.
+- **ESLint:** Code linting and formatting.
+- **PostCSS:** CSS transformations and optimizations.
+- **Prisma:** Schema management and seeding for the database.
 
 ## Getting Started
 
-First, run the development server:
+Follow these instructions to set up and run the project locally.
+
+### Prerequisites
+
+Ensure you have the following installed:
+
+- Node.js (>= 16.x)
+- npm or yarn
+- A PostgreSQL database (or any supported Prisma database)
+
+### Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/your-username/petsoft.git
+   ```
+
+2. Navigate to the project directory:
+
+   ```bash
+   cd petsoft
+   ```
+
+3. Install dependencies:
+
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
+
+4. Set up environment variables:
+   Create a `.env` file in the root directory and add the necessary configuration. Refer to `.env.example` for required variables.
+
+5. Set up the database:
+
+   ```bash
+   npx prisma migrate dev
+   ```
+
+6. Seed the database:
+
+   ```bash
+   npm run prisma:seed
+   ```
+
+### Running the Development Server
+
+Start the development server:
 
 ```bash
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Access the application at [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Building for Production
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+To create a production build:
 
-## Learn More
+```bash
+npm run build
+# or
+yarn build
+```
 
-To learn more about Next.js, take a look at the following resources:
+Start the production server:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm start
+# or
+yarn start
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### Linting
 
-## Deploy on Vercel
+Run the linter to check for code issues:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+npm run lint
+# or
+yarn lint
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Contributing
+
+Contributions are welcome! Please follow these steps:
+
+1. Fork the repository.
+2. Create a new branch for your feature:
+   ```bash
+   git checkout -b feature-name
+   ```
+3. Commit your changes:
+   ```bash
+   git commit -m "Add new feature"
+   ```
+4. Push to your branch:
+   ```bash
+   git push origin feature-name
+   ```
+5. Open a pull request.
+
+## Acknowledgments
+
+- UI components by [Radix UI](https://www.radix-ui.com/)
+- CSS utilities by [TailwindCSS](https://tailwindcss.com/)
+- Payment integration by [Stripe](https://stripe.com/)
+
+---
+
+Enjoy managing your pet daycare with PetSoft! 🐾
