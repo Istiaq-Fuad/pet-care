@@ -149,7 +149,7 @@ Contributions are welcome! Please follow these steps:
 
 ## Acknowledgments
 
-- UI components by [Radix UI](https://www.radix-ui.com/)
+- UI components by [Shadcn UI](https://ui.shadcn.com/)
 - CSS utilities by [TailwindCSS](https://tailwindcss.com/)
 - Payment integration by [Stripe](https://stripe.com/)
 
