@@ -6,7 +6,7 @@ import {
   authFormSchema,
   AuthFormType,
 } from "@/lib/validation/auth-form-validation";
-import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
+import { Prisma } from "@/generated/prisma/client";
 import bcrypt from "bcryptjs";
 import { z } from "zod";
 
@@ -22,7 +22,7 @@ export default async function signUp(authData: unknown) {
 
   if (!validatedAuthData.success) {
     // Convert Zod errors to a more usable format
-    const fieldErrors = validatedAuthData.error.errors.reduce((acc, err) => {
+    const fieldErrors = validatedAuthData.error.issues.reduce((acc, err) => {
       const field = err.path.join(".") as keyof AuthFormType;
       acc[field] = err.message;
       return acc;
@@ -43,7 +43,7 @@ export default async function signUp(authData: unknown) {
       },
     });
   } catch (error) {
-    if (error instanceof PrismaClientKnownRequestError) {
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
       if (error.code === "P2002") {
         return {
           email: "Email already exists",

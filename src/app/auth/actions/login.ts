@@ -12,7 +12,7 @@ export default async function logIn(authData: unknown) {
 
   if (!validatedAuthData.success) {
     // Convert Zod errors to a more usable format
-    const fieldErrors = validatedAuthData.error.errors.reduce((acc, err) => {
+    const fieldErrors = validatedAuthData.error.issues.reduce((acc, err) => {
       const field = err.path.join(".") as keyof AuthFormType;
       acc[field] = err.message;
       return acc;

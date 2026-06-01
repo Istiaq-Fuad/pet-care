@@ -1,7 +1,12 @@
-import { Prisma, PrismaClient } from "@prisma/client";
+import { config } from "dotenv";
+import { Prisma, PrismaClient } from "../src/generated/prisma/client";
+import { PrismaPg } from "@prisma/adapter-pg";
 import bcrypt from "bcryptjs";
 
-const prisma = new PrismaClient();
+config({ path: ".env.local" });
+
+const adapter = new PrismaPg({ connectionString: process.env.POSTGRES_URL });
+const prisma = new PrismaClient({ adapter });
 
 const userData: Prisma.UserCreateInput = {
   email: "example@gmail.com",

@@ -3,15 +3,16 @@
 import Logo from "@/components/logo";
 import { Button } from "@/components/ui/button";
 import checkOut from "./actions/checkOut";
-import { useTransition } from "react";
-import { SessionProvider, useSession } from "next-auth/react";
+import { use, useTransition } from "react";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 function PaymentPage({
   searchParams,
 }: {
-  searchParams: { [key: string]: string | string[] | undefined };
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
+  const params = use(searchParams);
   const [isPending, startTransition] = useTransition();
   const { data: session, update, status } = useSession();
   const router = useRouter();
@@ -24,7 +25,7 @@ function PaymentPage({
         PetSoft access requires payment
       </h1>
 
-      {!searchParams.success && (
+      {!params.success && (
         <Button
           disabled={isPending}
           onClick={async () => {
@@ -37,7 +38,7 @@ function PaymentPage({
         </Button>
       )}
 
-      {searchParams.success && (
+      {params.success && (
         <div className="flex flex-col justify-center items-center gap-y-5">
           <Button
             onClick={async () => {
@@ -54,7 +55,7 @@ function PaymentPage({
         </div>
       )}
 
-      {searchParams.canceled && (
+      {params.canceled && (
         <div className="p-4 bg-red-100 text-red-800 rounded-md">
           Payment canceled, try again!
         </div>

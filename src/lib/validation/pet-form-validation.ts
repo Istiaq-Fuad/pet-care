@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { PET_DEFAULT_IMAGE } from "../constants";
 
-export const petIdSchema = z.string().cuid();
+export const petIdSchema = z.cuid();
 
 export const petFormSchema = z.object({
   name: z
@@ -19,7 +19,7 @@ export const petFormSchema = z.object({
     .trim()
     .optional()
     .refine(
-      (val) => !val || z.string().url().safeParse(val).success,
+      (val) => !val || z.url().safeParse(val).success,
       "Image url must be a valid url"
     )
     .default(PET_DEFAULT_IMAGE),

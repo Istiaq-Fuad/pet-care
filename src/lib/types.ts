@@ -1,4 +1,4 @@
-import { Pet } from "@prisma/client";
+import { Pet } from "@/generated/prisma/client";
 
 export type PetEssential = Omit<
   Pet,
