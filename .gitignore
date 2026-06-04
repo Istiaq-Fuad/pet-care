@@ -32,6 +32,15 @@ yarn-error.log*
 # vercel
 .vercel
 
+# db backups (contain PII / password hashes)
+prod-backup-*.sql
+
+# agent tooling / skills
+.claude/
+.agents/
+.junie/
+skills-lock.json
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
