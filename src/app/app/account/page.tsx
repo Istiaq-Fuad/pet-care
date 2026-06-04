@@ -1,8 +1,9 @@
-import { auth } from "@/lib/auth-no-edge";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 import SignOutButton from "../components/sign-out-btn";
 
 async function Account() {
-  const session = await auth();
+  const session = await auth.api.getSession({ headers: await headers() });
 
   if (!session?.user) {
     return <div>You are not logged in</div>;

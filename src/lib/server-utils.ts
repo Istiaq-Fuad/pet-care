@@ -1,13 +1,13 @@
 import "server-only";
-import { auth } from "./auth-no-edge";
+import { auth } from "./auth";
+import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
 export async function readUserSession() {
-  const session = await auth();
+  const session = await auth.api.getSession({ headers: await headers() });
 
-  // console.log(session);
   if (!session?.user) {
-    redirect("auth/login");
+    redirect("/auth/login");
   }
 
   return session;

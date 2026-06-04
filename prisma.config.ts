@@ -8,8 +8,6 @@ export default defineConfig({
   schema: "prisma/schema.prisma",
   migrations: {
     path: "prisma/migrations",
-    // Direct (non-pooling) connection is used by the Prisma CLI for migrations
-    seed: 'ts-node --compiler-options {"module":"CommonJS"} prisma/seed.ts',
   },
   datasource: {
     // CLI uses this connection string for migrations; the runtime client uses

@@ -1,23 +1,13 @@
 "use server";
 
-import { signIn } from "@/lib/auth-no-edge";
-import prisma from "@/lib/db";
+import { auth } from "@/lib/auth";
 import {
   authFormSchema,
   AuthFormType,
 } from "@/lib/validation/auth-form-validation";
-import { Prisma } from "@/generated/prisma/client";
-import bcrypt from "bcryptjs";
-import { z } from "zod";
+import { APIError } from "better-auth/api";
 
 export default async function signUp(authData: unknown) {
-  // if (!(formData instanceof FormData)) {
-  //   return {
-  //     message: "Invalid form data",
-  //   };
-  // }
-
-  // const formDataObj = Object.fromEntries(formData.entries());
   const validatedAuthData = authFormSchema.safeParse(authData);
 
   if (!validatedAuthData.success) {
@@ -34,26 +24,22 @@ export default async function signUp(authData: unknown) {
   const { email, password } = validatedAuthData.data;
 
   try {
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    await prisma.user.create({
-      data: {
-        email: email,
-        hashedPassword,
-      },
+    await auth.api.signUpEmail({
+      // Better Auth requires a name; derive it from the email local-part.
+      body: { name: email.split("@")[0], email, password },
     });
   } catch (error) {
-    if (error instanceof Prisma.PrismaClientKnownRequestError) {
-      if (error.code === "P2002") {
+    if (error instanceof APIError) {
+      if (error.body?.code === "USER_ALREADY_EXISTS") {
         return {
           email: "Email already exists",
         };
       }
+      return {
+        default: "Couldn't create user",
+      };
     }
-    return {
-      default: "Couldn't create user",
-    };
-  }
 
-  await signIn("credentials", validatedAuthData.data);
+    throw error;
+  }
 }

@@ -4,7 +4,7 @@ import Logo from "@/components/logo";
 import { Button } from "@/components/ui/button";
 import checkOut from "./actions/checkOut";
 import { use, useTransition } from "react";
-import { useSession } from "next-auth/react";
+import { useSession } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 
 function PaymentPage({
@@ -14,7 +14,7 @@ function PaymentPage({
 }) {
   const params = use(searchParams);
   const [isPending, startTransition] = useTransition();
-  const { data: session, update, status } = useSession();
+  const { data: session, isPending: isSessionPending, refetch } = useSession();
   const router = useRouter();
 
   return (
@@ -42,10 +42,12 @@ function PaymentPage({
         <div className="flex flex-col justify-center items-center gap-y-5">
           <Button
             onClick={async () => {
-              await update(true);
+              // Re-fetch the session so the Stripe-webhook-updated hasAccess
+              // is reflected before navigating into the gated app.
+              await refetch();
               router.push("/app/dashboard");
             }}
-            disabled={status === "loading" || session?.user.hasAccess}
+            disabled={isSessionPending || Boolean(session?.user.hasAccess)}
           >
             Access PetSoft
           </Button>
