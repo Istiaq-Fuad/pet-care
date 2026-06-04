@@ -1,7 +1,10 @@
 "use server";
 
-import { signOut } from "@/lib/auth-no-edge";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 
 export default async function logOut() {
-  await signOut({ redirectTo: "/" });
+  await auth.api.signOut({ headers: await headers() });
+  redirect("/");
 }

@@ -12,7 +12,7 @@ import {
 import { usePetStore } from "@/store/pet-store";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
-import { useForm } from "react-hook-form";
+import { useForm, type Resolver } from "react-hook-form";
 import { z } from "zod";
 
 type PetFormProps = {
@@ -31,7 +31,9 @@ function PetForm({ buttonText, actionType, onFormSubmission }: PetFormProps) {
     getValues,
     formState: { errors },
   } = useForm<PetFormType>({
-    resolver: zodResolver(petFormSchema),
+    // zodResolver (v5) splits input/output types because the schema uses
+    // .default()/coerce; the form operates on the resolved output shape.
+    resolver: zodResolver(petFormSchema) as Resolver<PetFormType>,
     defaultValues:
       actionType === "edit" && selectedPet
         ? {

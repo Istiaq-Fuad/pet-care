@@ -23,15 +23,18 @@ export async function POST(req: Request) {
   }
 
   switch (event.type) {
-    case "checkout.session.completed":
+    case "checkout.session.completed": {
+      const checkoutSession = event.data.object;
       await prisma.user.update({
         where: {
-          email: event.data.object.customer_email!,
+          email: checkoutSession.customer_email!,
         },
         data: {
           hasAccess: true,
         },
       });
+      break;
+    }
     default:
       console.log("Unhandled event type: ", event.type);
   }

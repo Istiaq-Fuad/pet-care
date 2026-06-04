@@ -2,7 +2,7 @@ import addPet from "@/app/app/dashboard/actions/add-pet";
 import checkoutPet from "@/app/app/dashboard/actions/checkout-pet";
 import editPet from "@/app/app/dashboard/actions/edit-pet";
 import { PetEssential } from "@/lib/types";
-import { Pet } from "@prisma/client";
+import { Pet } from "@/generated/prisma/client";
 import { toast } from "sonner";
 import { create } from "zustand";
 

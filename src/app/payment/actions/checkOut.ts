@@ -18,7 +18,7 @@ export default async function checkOut() {
     mode: "payment",
     line_items: [
       {
-        price: "price_1PwKkXFS41sCH25Fwp9emjEJ",
+        price: process.env.STRIPE_PRICE_ID ?? "price_1PwKkXFS41sCH25Fwp9emjEJ",
         quantity: 1,
       },
     ],
